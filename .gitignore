@@ -12,5 +12,4 @@ bin/
 *.txt
 # but track input.txt and ReadMe.txt
 ! input.txt
-! ReadMe.txt
-
+! README.md
