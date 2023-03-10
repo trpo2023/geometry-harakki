@@ -1,0 +1,15 @@
+$ cat .gitignore
+# no executable file
+main
+#no *.o or *.a files
+*.[oa]
+# no temporary files
+*~
+*swp
+# ignore all files in the bin/directory
+bin/
+# no *.txt files
+*.txt
+# but track input.txt and ReadMe.txt
+! input.txt
+! README.md
