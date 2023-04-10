@@ -1,6 +1,9 @@
-# Лабораторная работа №1 😿
->Основы git, основы make
+# Laboratory work №3 on the subject SDT*
+Building an application based on the program from Lab #1.
 
-Авторы: Шипилов Дементий, Майстренко Ксения, Сивов Семён
-## Особенности ✨
-- мы старались⚰️☠️
+## Authors:
+- [Dementiy Shipilov](https://github.com/harakki)
+- [Ksenia Maistrenko](https://github.com/carasik9)
+- [Semyon Sivov](https://github.com/Arkendar)
+
+`* Software development technologies`
