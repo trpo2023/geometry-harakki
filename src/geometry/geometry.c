@@ -5,7 +5,7 @@
 
 #include "calculate_circle.h"
 
-int ESC;
+// int ESC;
 
 int main()
 {
