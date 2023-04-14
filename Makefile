@@ -23,16 +23,15 @@ obj/src/libgeometry/calculate_circle.o: src/libgeometry/calculate_circle.c src/l
 	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I src/libgeometry
 
 #ТЕСТЫ
-test: test/test
 
-test/test: test/geometry_test.o test/main.o
-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ $^
+test: obj/src/geometry/geometry.o test/main.o thirdparty/ctest.h
+	$(CC) $(LDFLAGS) main.c.o mytests.c.o -o test
 
 test/geometry_test.o: test/geometry_test.c thirdparty/ctest.h
-	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I thirdparty -I src/libgeometry
+	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I thirdparty/ctest.h
 
 test/main.o: test/main.c test/geometry_test.o thirdparty/ctest.h
-	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I thirdparty -I src/libgeometry
+	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I thirdparty/ctest.h
 
 # ОЧИСТКА
 
@@ -43,8 +42,5 @@ clean:
 	rm obj/src/libgeometry/*.d
 	rm obj/src/libgeometry/*.o
 	rm obj/src/libgeometry/*.a
-	rm test/*.d
-	rm test/*.o
-	rm test/test
 
 -include obj/src/geometry/geometry.d obj/src/libgeometry/calculate_circle.d
