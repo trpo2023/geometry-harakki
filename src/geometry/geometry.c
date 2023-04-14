@@ -7,7 +7,8 @@
 
 int ESC;
 
-int main() {
+int main()
+{
     // printf("This message will be displayed once.\nTo exit the program, press
     // ESC.\n\n");
 
@@ -185,7 +186,8 @@ int main() {
         for (int j = 0, point = 0, minus = 0; j < index; j++) {
             if (radius[0] == '.') {
                 for (unsigned int k = 0;
-                     k < strlen(circle) + indexX + indexY + 4; k++)
+                     k < strlen(circle) + indexX + indexY + 4;
+                     k++)
                     printf(" ");
                 printf("^\n");
                 printf("Error at collum %ld: expected '<double>'\n",
@@ -219,8 +221,12 @@ int main() {
 
         printf("%s", object);
         calculate_circle(radius_num, &area_num, &perimetr_num);
-        printf("x = %f\ny = %f\nRadius = %f\nArea = %f\nPerimetr = %f\n", x_num,
-               y_num, radius_num, area_num, perimetr_num);
+        printf("x = %f\ny = %f\nRadius = %f\nArea = %f\nPerimetr = %f\n",
+               x_num,
+               y_num,
+               radius_num,
+               area_num,
+               perimetr_num);
     }
 
     else {
