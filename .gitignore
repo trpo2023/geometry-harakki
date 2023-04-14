@@ -16,6 +16,5 @@ main.exe
 *.log
 # no .vscode/ and bin/ directory
 .vscode/
-bin/
 # always track README.md
 ! README.md

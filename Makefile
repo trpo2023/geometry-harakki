@@ -20,11 +20,11 @@ obj/src/libgeometry/calculate_circle.o: src/libgeometry/calculate_circle.c src/l
 	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I src/libgeometry
 
 clean: 
-	rm obj/src/lib/*.o
-	rm obj/src/geometry/*.o
-	rm bin/*
+	rm bin/geometry
 	rm obj/src/geometry/*.d
-	rm obj/src/lib/*.d
-	rm obj/src/lib/lib.a
+	rm obj/src/geometry/*.o
+	rm obj/src/libgeometry/*.d
+	rm obj/src/libgeometry/*.o
+	rm obj/src/libgeometry/*.a
 
 -include obj/src/geometry/geometry.d obj/src/libgeometry/calculate_circle.d
