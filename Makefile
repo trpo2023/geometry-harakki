@@ -1,4 +1,7 @@
+# ПРОГРАММА
+
 .PHONY: clean
+.PHONY: test
 
 CFLAGS = -Wall -Wextra -Werror
 CPPFLAGS = -MMD
@@ -18,6 +21,19 @@ obj/src/geometry/geometry.o: src/geometry/geometry.c
 
 obj/src/libgeometry/calculate_circle.o: src/libgeometry/calculate_circle.c src/libgeometry/calculate_circle.h
 	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I src/libgeometry
+
+#ТЕСТЫ
+
+test: obj/src/geometry/geometry.o test/main.o thirdparty/ctest.h
+	$(CC) $(LDFLAGS) main.c.o mytests.c.o -o test
+
+test/geometry_test.o: test/geometry_test.c thirdparty/ctest.h
+	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I thirdparty/ctest.h
+
+test/main.o: test/main.c test/geometry_test.o thirdparty/ctest.h
+	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I thirdparty/ctest.h
+
+# ОЧИСТКА
 
 clean: 
 	rm bin/geometry
