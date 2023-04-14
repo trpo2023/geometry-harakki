@@ -1,2 +1,3 @@
-#pragma once
-void calculate_circle();
+	#pragma once
+	
+	void calculate_circle();
