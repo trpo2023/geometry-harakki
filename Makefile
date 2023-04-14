@@ -1,28 +1,30 @@
-#I DONT UNDERSTAND HOW TO MAKE IT WORKS!
-CC = gcc
-CFLAGS = -Wall -Wextra -I src/libgeometry
+.PHONY: clean
+
+CFLAGS = -Wall -Wextra -Werror
 CPPFLAGS = -MMD
-LDFLAGS = -lm
 
-SRCDIR = src/geometry/
-LIBDIR = src/libgeometry
+LIBPATH = obj/src/libgeometry
 
-SRC = $(wildcard $(SRCDIR)/*.c)
-OBJ = $(patsubst $(SRCDIR)/%.c, $(SRCDIR)/%.o, $(SRC))
+all: bin/geometry
 
-all: geometry
+bin/geometry: obj/src/geometry/geometry.o obj/src/libgeometry/libgeometry.a
+	$(CC) $(CFLAGS) -o $@ $^
 
-geometry: $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $^ $(LIBDIR)/calculate_circle.o
+obj/src/libgeometry/libgeometry.a: obj/src/libgeometry/calculate_circle.o
+	ar rcs $@ $^
 
-$(SRCDIR)/%.o: $(SRCDIR)/%.c
-	$(CC) -c $(CFLAGS) -o $@ $<
+obj/src/geometry/geometry.o: src/geometry/geometry.c
+	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I src/libgeometry 
 
-$(LIBDIR)/calculate_circle.o: $(LIBDIR)/calculate_circle.o $(LIBDIR)/calculate_circle.h
-	ar rsc $@ $^
+obj/src/libgeometry/calculate_circle.o: src/libgeometry/calculate_circle.c src/libgeometry/calculate_circle.h
+	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I src/libgeometry
 
-$(LIBDIR)/calculate_circle.o: $(LIBDIR)/calculate_circle.c $(LIBDIR)/calculate_circle.h
-	$(CC) -c $(CFLAGS) -o $@ $<
+clean: 
+	rm obj/src/lib/*.o
+	rm obj/src/geometry/*.o
+	rm bin/*
+	rm obj/src/geometry/*.d
+	rm obj/src/lib/*.d
+	rm obj/src/lib/lib.a
 
-clean:
-	rm -f $(OBJ) $(LIBDIR)/calculate_circle.o geometry
+-include obj/src/geometry/geometry.d obj/src/libgeometry/calculate_circle.d

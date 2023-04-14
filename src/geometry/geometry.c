@@ -1,7 +1,7 @@
 #include <stdio.h>
+#include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
-#include <string.h>
 
 #include "calculate_circle.h"
 
@@ -9,9 +9,9 @@ int ESC;
 
 int main()
 {
-    printf('This message will be displayed once.\nTo exit the program, press ESC.\n\n');
+    // printf("This message will be displayed once.\nTo exit the program, press ESC.\n\n");
 
-    while ((ESC = getch()) != 27) {
+    // while ((ESC = getch()) != 27) { // only works on Windows
         char circle[] = "circle";
         char object[50];
         char input[50];
@@ -29,7 +29,7 @@ int main()
             input[i] = '\0';
         }
 
-        printf('enter the circle parameters in WKT format: ');
+        printf("enter the circle parameters in WKT format: ");
         fgets(input, sizeof(input), stdin); // get input from the user
 
         // convert input to lowercase
@@ -232,6 +232,6 @@ int main()
         else {
             printf("\nError at first word: expected 'circle'");
         }
-    }
+    // }
     return 0;
 }
