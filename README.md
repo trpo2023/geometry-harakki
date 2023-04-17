@@ -1,5 +1,5 @@
-# Laboratory work №3 on the subject SDT*
-Building an application based on the program from Lab #1.
+# Laboratory work #4 on the subject SDT*
+Creating an application with unit testing.
 
 ## Authors:
 - [Dementiy Shipilov](https://github.com/harakki)
