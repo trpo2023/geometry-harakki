@@ -1,20 +1,10 @@
-$ cat .gitignore
-# no executable file
-main
-main.exe
-#no *.o, *.a and *.d files
-*.o
 *.a
 *.d
-# no temporary files
+*.o
 *~
 *swp
 *.tmp
-# no *.txt files
-*.txt
-# no *.log files
-*.log
-# no .vscode/ and bin/ directory
+bin/geometry
+test/test
 .vscode/
-# always track README.md
-! README.md
+*.log

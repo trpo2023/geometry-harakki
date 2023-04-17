@@ -5,11 +5,16 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
       - uses: actions/checkout@v2
-      # - name: Check codestyle
-      #   run: git ls-files *.{c,h} | xargs clang-format -i --verbose && git diff --exit-code
+
+      - name: Apply automatic formatting
+        run: make format
+
+      - name: Check codestyle
+        run: git ls-files *.{c,h} | xargs clang-format -i --verbose && git diff --exit-code
+
       - name: Build application
         run: make
+
+      - name: Build & run tests
+        run: make test

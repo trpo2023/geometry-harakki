@@ -1,46 +1,60 @@
-# ПРОГРАММА
+APP_NAME = geometry
+LIB_NAME = libgeometry
+INC_NAME = calculate_circle
 
-.PHONY: clean
-.PHONY: test
-
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 CPPFLAGS = -MMD
 
-LIBPATH = obj/src/libgeometry
+LIB_PATH = src/$(LIB_NAME)
+SRC_PATH = src/$(APP_NAME)
+OUT_LIB_PATH = obj/src/$(LIB_NAME)
+OUT_SRC_PATH = obj/src/$(APP_NAME)
 
-all: bin/geometry
+all: bin/$(APP_NAME)
 
-bin/geometry: obj/src/geometry/geometry.o obj/src/libgeometry/libgeometry.a
+bin/$(APP_NAME): $(OUT_SRC_PATH)/$(APP_NAME).o $(OUT_LIB_PATH)/$(LIB_NAME).a
 	$(CC) $(CFLAGS) -o $@ $^
 
-obj/src/libgeometry/libgeometry.a: obj/src/libgeometry/calculate_circle.o
+$(OUT_LIB_PATH)/$(LIB_NAME).a: $(OUT_LIB_PATH)/$(INC_NAME).o
 	ar rcs $@ $^
 
-obj/src/geometry/geometry.o: src/geometry/geometry.c
-	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I src/libgeometry 
+$(OUT_SRC_PATH)/$(APP_NAME).o: $(SRC_PATH)/$(APP_NAME).c
+	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I $(LIB_PATH) 
 
-obj/src/libgeometry/calculate_circle.o: src/libgeometry/calculate_circle.c src/libgeometry/calculate_circle.h
-	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I src/libgeometry
+$(OUT_LIB_PATH)/$(INC_NAME).o: $(LIB_PATH)/$(INC_NAME).c $(LIB_PATH)/$(INC_NAME).h
+	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I $(LIB_PATH)
 
-#ТЕСТЫ
+.PHONY: test
+test: test/test
 
-test: obj/src/geometry/geometry.o test/main.o thirdparty/ctest.h
-	$(CC) $(LDFLAGS) main.c.o mytests.c.o -o test
+test/test: test/$(APP_NAME)_test.o test/main.o
+	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ $^
+	@echo ------------------------------------------------ ; cd test/ && ./test
 
-test/geometry_test.o: test/geometry_test.c thirdparty/ctest.h
-	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I thirdparty/ctest.h
+test/$(APP_NAME)_test.o: test/$(APP_NAME)_test.c thirdparty/ctest.h
+	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I thirdparty -I $(LIB_PATH)
 
-test/main.o: test/main.c test/geometry_test.o thirdparty/ctest.h
-	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I thirdparty/ctest.h
+test/main.o: test/main.c test/$(APP_NAME)_test.o thirdparty/ctest.h
+	$(CC) -c $(CFLAGS) $< $(CPPFLAGS) -o $@ -I thirdparty -I $(LIB_PATH)
 
-# ОЧИСТКА
-
+.PHONY: clean
 clean: 
-	rm bin/geometry
-	rm obj/src/geometry/*.d
-	rm obj/src/geometry/*.o
-	rm obj/src/libgeometry/*.d
-	rm obj/src/libgeometry/*.o
-	rm obj/src/libgeometry/*.a
+	rm bin/$(APP_NAME)
+	rm $(OUT_SRC_PATH)/*.d
+	rm $(OUT_SRC_PATH)/*.o
+	rm $(OUT_LIB_PATH)/*.d
+	rm $(OUT_LIB_PATH)/*.o
+	rm $(OUT_LIB_PATH)/*.a
+	rm test/*.d
+	rm test/*.o
+	rm test/test
 
--include obj/src/geometry/geometry.d obj/src/libgeometry/calculate_circle.d
+SRCS := $(shell find . -type f -name '*.c')
+HDRS := $(shell find . -type f -name '*.h')
+
+format:
+	clang-format -i $(SRCS) $(HDRS)
+
+# -include $(OUT_SRC_PATH)/$(APP_NAME).d $(OUT_LIB_PATH)/$(INC_NAME).d
+.PHONY: all test clean format
