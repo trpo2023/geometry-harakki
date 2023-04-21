@@ -104,7 +104,7 @@ int main()
                 x[j] = object[i];
             }
             index = j;
-        }
+        } // created by Shipilov, Sivov, Maistrenko
 
         x_num = atof(x); // x_num is a double type x
         int indexX = index;
