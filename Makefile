@@ -40,15 +40,15 @@ test/main.o: test/main.c test/$(APP_NAME)_test.o thirdparty/ctest.h
 
 .PHONY: clean
 clean: 
-	rm bin/$(APP_NAME)
-	rm $(OUT_SRC_PATH)/*.d
-	rm $(OUT_SRC_PATH)/*.o
-	rm $(OUT_LIB_PATH)/*.d
-	rm $(OUT_LIB_PATH)/*.o
-	rm $(OUT_LIB_PATH)/*.a
-	rm test/*.d
-	rm test/*.o
-	rm test/test
+	rm -rf bin/$(APP_NAME)
+	rm -rf $(OUT_SRC_PATH)/*.d
+	rm -rf $(OUT_SRC_PATH)/*.o
+	rm -rf $(OUT_LIB_PATH)/*.d
+	rm -rf $(OUT_LIB_PATH)/*.o
+	rm -rf $(OUT_LIB_PATH)/*.a
+	rm -rf test/*.d
+	rm -rf test/*.o
+	rm -rf test/test
 
 SRCS := $(shell find . -type f -name '*.c')
 HDRS := $(shell find . -type f -name '*.h')
